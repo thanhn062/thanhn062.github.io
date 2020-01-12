@@ -1,50 +1,63 @@
 <!DOCTYPE html>
-<html lang="en-us">
-    <head>
-      <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-      <link rel="stylesheet" type="text/css" href="assets/css/letter.css">
-      <title>Thanh's Portfolio</title>
-    </head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Thanh's Portfolio</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
-    <body>
-        <div class="header">
-            <div class="navigation" style="background-color: white;">
-                <ul style="background-color: white">
-                    <li class="my-name">Thanh Ngo</li>
-                    <li style="color: #dddddd; float: right;"><a href="index.html">About</a>|<a href="portfolio.html">Portfolio</a>|<a href="contact.html">Contact</a></li>
-                </ul>
+  </head>
+  <body>
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Thanh Ngo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" style="z-index: 2;">
+          <ul class="navbar-nav mr-auto justify-content-end">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="portfolio.html">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div class="container">
+      <div class="row" style="border-style: dashed solid; padding: 10px; background: #eae1c8">
+        <div class="col-sm-3"><img class="img img-thumbnail" src="assets/images/profilePic.png" alt="Thanh"></div>
+        <div class="col-sm-6">
+          <div class="card"  style="width: 150%;">
+            <div class="card-body ">
+              <p style="color: #4aaaa5!important; font-size: 25px;font-weight: bold;font-family: 'Georgia', Times, 'Times New Roman', serif;">About Me</p>
+              <hr>
+              <span style="font-size: 25px">Hi !</span> My name is Thanh.
+              I came from a small town located in south-east of Vietnam and I migrated to the United State in 7th grade with my family.
+              Because of the language barrier, video games is my only escape at the time.
+              Like most people, I play a lot of video games in my middle and high school years.
+              What different is that I am a very competitive gamer, I would spent hours trying to be the top players,
+              but the games that I used to play was very time consuming so I wanted to find a way to do more for less.
+              Then I discovered <a target="_blank" href="https://www.autohotkey.com/">Autohotkey</a> (a scripting language that let you manipulate keystrokes and mouse)
+              and I started making tools to boost my gaming experience and share it to other players. Since that day, I dedicated my time to make more tools for not just gaming, but also tools to helps with my daily tasks.
             </div>
+          </div>
         </div>
-
-        <div class="container">
-            <div class="content">
-                    <p style="color: #4aaaa5; font-size: 25px;font-weight: bold;font-family: 'Georgia', Times, 'Times New Roman', serif;">About Me</p>
-                    <hr>
-                    <div class="profile">
-                      <img style="float: left; padding: 0px 20px 20px 0px" width="280" height="auto" alt="Picture of me" src="assets/images/profilePic.png"/>
-                      <p style="margin-top: 0px; ">
-                      <h1>
-                        <span>T</span>
-                        <span>H</span>
-                        <span>A</span>
-                        <span>N</span>
-                        <span>H</span>
-                      </h1>
-                        <span style="font-size: 25px">Hi !</span> My name is _______________.
-                        I came from a small town located in south-east of Vietnam and I migrated to the United State in 7th grade with my family.
-                        Because of the language barrier, video games is my only escape at the time.
-                        Like most people, I play a lot of video games in my middle and high school years.
-                        What different is that I am a very competitive gamer, I would spent hours trying to be the top players,
-                        but the games that I used to play was very time consuming so I wanted to find a way to do more for less.
-                        Then I discovered <a target="_blank" href="https://www.autohotkey.com/">Autohotkey</a> (a scripting language that let you manipulate keystrokes and mouse)
-                        and I started making tools to boost my gaming experience and share it to other players. Since that day, I dedicated my time to make more tools for not just gaming, but also tools to helps with my daily tasks.
-                    </div>
-            </div>
-        </div>
-
-        <div class="footer">
-          <p style="padding-top: 15px"> Copyright © 2019 Thanh Ngo</p>
-        </div>
-    </body>
+      </div>
+      <div class="col-sm-3"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <p style="padding-top: 15px"> Copyright © 2019 Thanh Ngo</p>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </html>
