@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pasword Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body style="background: #ededed">
+
+    <div class="container mx-auto justify-content-center padding-x-lg">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-lg-6">
+          <h2 class="text-center">Password Generator</h2>
+          <div class="card" style="border: 3px solid black">
+            <div class="card-body">
+              <h2>Generate a Password</h2>
+              <hr>
+              <div class="card" style="border: 2px dotted black">
+                <div class="card-body" style="padding: 0px;">
+                  <input style="width: 100%; height: 100px;" type="text" value="Your secured password" id="password">
+                </div>
+              </div>
+              <br>
+              <div class="span2">
+                <input class="btn btn-primary btn-block" type="button" value="Generate Password" onclick="generatePW()">
+                <input class="btn btn-secondary btn-block" type="button" value="Copy to Clipboard" onclick="copy()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+    </div>
+    <script>
+
+      var password = document.getElementById("password");
+      function copy() {
+        password.select();
+        password.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+      }
+      function generatePW() {
+        var length = prompt("Password length: 8-128 characters");
+        var string = "";
+        var characters = [];
+
+        if (length >= 8 && length <= 128)
+        {
+          var specialChar = prompt("Password contain special characters ? (Y / N)");
+          var numChar = prompt("Password contain numeric characters ? (Y / N)");
+          var lowChar = prompt("Password contain lowercase characters ? (Y / N)");
+          var upChar = prompt("Password contain uppercase characters ? (Y / N)")
+
+          if (specialChar.toLowerCase() === "n" && numChar.toLowerCase() === "n" && lowChar.toLowerCase() === "n" && upChar.toLowerCase() == "n")
+          {
+            alert("Need to atleast select 1 character type");
+            return;
+          }
+
+          if (specialChar.toLowerCase() === "y")
+          {
+            characters.push(" ");
+            characters.push("!");
+            characters.push("\"");
+            characters.push("#");
+            characters.push("$");
+            characters.push("%");
+            characters.push("&");
+            characters.push("\'");
+            characters.push("(");
+            characters.push(")");
+            characters.push("*");
+            characters.push("+");
+            characters.push(",");
+            characters.push("-");
+            characters.push(".");
+            characters.push("/");
+            characters.push(":");
+            characters.push(";");
+            characters.push("<");
+            characters.push("=");
+            characters.push(">");
+            characters.push("?");
+            characters.push("@");
+            characters.push("[");
+            characters.push("\\");
+            characters.push("]");
+            characters.push("^");
+            characters.push("_");
+            characters.push("`");
+            characters.push("{");
+            characters.push("|");
+            characters.push("}");
+            characters.push("~");
+          }
+          if (numChar.toLowerCase() === "y") {
+            characters.push("0");
+            characters.push("1");
+            characters.push("2");
+            characters.push("3");
+            characters.push("4");
+            characters.push("5");
+            characters.push("6");
+            characters.push("7");
+            characters.push("8");
+            characters.push("9");
+          }
+          if (lowChar.toLowerCase() === "y") {
+            characters.push("a");
+            characters.push("b");
+            characters.push("c");
+            characters.push("d");
+            characters.push("e");
+            characters.push("f");
+            characters.push("g");
+            characters.push("h");
+            characters.push("i");
+            characters.push("j");
+            characters.push("k");
+            characters.push("l");
+            characters.push("m");
+            characters.push("n");
+            characters.push("o");
+            characters.push("p");
+            characters.push("q");
+            characters.push("r");
+            characters.push("s");
+            characters.push("t");
+            characters.push("u");
+            characters.push("v");
+            characters.push("w");
+            characters.push("x");
+            characters.push("y");
+            characters.push("z");
+          }
+          if (upChar.toLowerCase() === "y") {
+            characters.push("A");
+            characters.push("B");
+            characters.push("C");
+            characters.push("D");
+            characters.push("E");
+            characters.push("F");
+            characters.push("G");
+            characters.push("H");
+            characters.push("I");
+            characters.push("J");
+            characters.push("K");
+            characters.push("L");
+            characters.push("M");
+            characters.push("N");
+            characters.push("O");
+            characters.push("P");
+            characters.push("Q");
+            characters.push("R");
+            characters.push("S");
+            characters.push("T");
+            characters.push("U");
+            characters.push("V");
+            characters.push("W");
+            characters.push("X");
+            characters.push("Y");
+            characters.push("Z");
+          }
+          for (var i = 0; i < length; i++) {
+            random = Math.floor(Math.random() * characters.length);
+            string += characters[random];
+          }
+          password.value = string;
+        }
+        else {
+          alert("Invalid Input");
+          return ;
+        }
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
