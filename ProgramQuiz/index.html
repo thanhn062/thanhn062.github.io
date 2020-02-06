@@ -29,10 +29,10 @@
         <div class="col-sm-12 mt-5 pl-5">
           <div id="title"></div><hr>
           <div id="choices">
-            <button id="choice-0" type="button" class="btn btn-primary choices" value="1"></button><br>
-            <button id="choice-1" type="button" class="btn btn-primary choices" value="2"></button><br>
-            <button id="choice-2" type="button" class="btn btn-primary choices" value="3"></button><br>
-            <button id="choice-3" type="button" class="btn btn-primary choices" value="4"></button><br>
+            a) <button id="choice-0" type="button" class="btn btn-primary choices" value="1"></button><br>
+            b) <button id="choice-1" type="button" class="btn btn-primary choices" value="2"></button><br>
+            c) <button id="choice-2" type="button" class="btn btn-primary choices" value="3"></button><br>
+            d) <button id="choice-3" type="button" class="btn btn-primary choices" value="4"></button><br>
           </div>
           <div id="result"></div>
         </div>
@@ -42,9 +42,18 @@
         <div class="col-sm-12 mt-5 text-center">
             <h2>All Done !</h2>
             Your final score is <p id="point"></p>
-            Your Initials: <input type="text" name="fname">
+            Your Initials: <input type="text" id="initials"></input>
             <button id="submit" type="button" class="btn btn-primary">Submit</button>
         </div>
+      </div>
+
+      <div id="highscore-board" class="text-center row">
+          <div class="col-sm-12 mt-5">
+            <h1>Highscore</h1>
+            <p id="board"></p>
+            <button id="go-back" type="button" class="btn btn-primary">Go Back</button>
+            <button id="clear-highscore" type="button" class="btn btn-primary">Clear Highscore</button>
+          </div>
       </div>
     </div>
     <script>
@@ -52,13 +61,20 @@
       var num = 0;
       var score = 0;
       var time = 0;
+      $("#submit").on("click",function() {
+        $("#highscore").hide();
+        $("#highscore-board").show();
+        var initials = $("#initials").val();
+        $("#board").append(initials + "<br>");
+      });
 
       $("#start").on("click",function() {
         // Hide start screen
         $("#start-screen").hide();
 
         // Start timer
-       time = 75;
+       time = 74;
+       $("#time").text("75");
         var timer = setInterval(myTimer, 1000);
         // Show questions div
         $("#questions").show();
@@ -76,7 +92,7 @@
         }
         else {
           $("#result").append("<hr> Wrong !");
-          score--;
+          time-=10;
         }
 
         // Move on to next question
@@ -90,6 +106,8 @@
             $("#questions").hide();
             $("#point").text(score);
             $("#highscore").show();
+            time = 0;
+            stopTimer();
           }
           else
             setQuestion(num);
@@ -98,7 +116,19 @@
 
       function myTimer() {
         $("#time").text(time);
-        time--;
+        if (time <= 0)
+          {
+            $("#questions").hide();
+            $("#point").text(score);
+            $("#highscore").show();
+            $("#time").text("0");
+            stopTimer();
+          }
+          time--;
+      }
+      function stopTimer() {
+        clearInterval(myTimer);
+        window.clearTimeout();
       }
       function setQuestion(num) {
         // Clear result

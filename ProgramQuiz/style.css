@@ -13,10 +13,14 @@ hr {
    display: none;
    width: 100%;
 }
-
+#highscore-board {
+  display: none;
+}
 #highscore {
   display: none;
 }
 #title {
   width: 100%;
+}
+#board {
 }
