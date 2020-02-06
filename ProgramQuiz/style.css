@@ -1,0 +1,22 @@
+body {
+  font-size: 1.8em;
+}
+hr {
+  width: 100%;
+}
+
+#container {
+  align-self: center;
+}
+#questions {
+   font-size: 1.6em;
+   display: none;
+   width: 100%;
+}
+
+#highscore {
+  display: none;
+}
+#title {
+  width: 100%;
+}

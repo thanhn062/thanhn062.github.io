@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Programming Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="questions.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <p id="view-highscore w-10"><a href="">View Highscore</a></p>
+        </div>
+        <div class="col-sm-6">
+          <p id="time" class="float-right float-top">0</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 text-center mt-5" id="start-screen">
+          <h2>Coding Quiz Challenge</h2>
+          <button id="start" type="button" class="btn btn-primary">Start Quiz</button>
+        </div>
+      </div>
+
+      <div id="questions" class="row">
+        <div class="col-sm-12 mt-5 pl-5">
+          <div id="title"></div><hr>
+          <div id="choices">
+            <button id="choice-0" type="button" class="btn btn-primary choices" value="1"></button><br>
+            <button id="choice-1" type="button" class="btn btn-primary choices" value="2"></button><br>
+            <button id="choice-2" type="button" class="btn btn-primary choices" value="3"></button><br>
+            <button id="choice-3" type="button" class="btn btn-primary choices" value="4"></button><br>
+          </div>
+          <div id="result"></div>
+        </div>
+      </div>
+
+      <div id="highscore" class="row">
+        <div class="col-sm-12 mt-5 text-center">
+            <h2>All Done !</h2>
+            Your final score is <p id="point"></p>
+            Your Initials: <input type="text" name="fname">
+            <button id="submit" type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Start at question #1
+      var num = 0;
+      var score = 0;
+      var time = 0;
+
+      $("#start").on("click",function() {
+        // Hide start screen
+        $("#start-screen").hide();
+
+        // Start timer
+       time = 75;
+        var timer = setInterval(myTimer, 1000);
+        // Show questions div
+        $("#questions").show();
+
+        // Set question
+        setQuestion(num);
+      });
+
+      $(".choices").on("click",function() {
+        var value = $(this).val();
+        // Check answer
+        if (value == questions[num].answer) {
+          $("#result").append("<hr> Correct !");
+          score++;
+        }
+        else {
+          $("#result").append("<hr> Wrong !");
+          score--;
+        }
+
+        // Move on to next question
+        num++;
+
+
+        // Delay 500ms, 1/2 a second
+        window.setTimeout(function() {
+          // Check end of questions
+          if (num == questions.length) {
+            $("#questions").hide();
+            $("#point").text(score);
+            $("#highscore").show();
+          }
+          else
+            setQuestion(num);
+        }, 500);
+      });
+
+      function myTimer() {
+        $("#time").text(time);
+        time--;
+      }
+      function setQuestion(num) {
+        // Clear result
+        $("#result").text("");
+        // Set questions
+        $("#title").text(questions[num].title);
+        // Set choices
+
+        for (var i = 0; i <= questions[num].choices.length; i++) {
+          $("#choice-" + i).text(questions[num].choices[i]);
+          $("#choice-" + i).attr("value",questions[num].choices[i]);
+          $("#choice-" + i).attr("text",questions[num].choices[i]);
+        }
+      }
+    </script>
+  </body>
+</html>
