@@ -106,6 +106,13 @@ function getHighscore() {
 
   // Clear out Table
   $("#board").html("");
+  var tr = $("<tr>");
+  var ini = $("<th>").text("Initials");
+  var score = $("<th>").text("Score");
+  tr.append(ini);
+  tr.append(score);
+  $("#board").append(tr);
+
   var player = localStorage.getItem("player");
   var player_ = player.split("|");
   for (var i = 0; i < player_.length; i++) {
