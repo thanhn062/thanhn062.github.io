@@ -22,5 +22,10 @@ hr {
 #title {
   width: 100%;
 }
-#board {
+#time {
+  font-size: 1.8em;
+  padding-right: 10px;
+}
+#result {
+  font-size: 1.8em;
 }

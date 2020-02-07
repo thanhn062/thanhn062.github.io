@@ -11,138 +11,63 @@
   <body>
     <div id="container">
       <div class="row">
-        <div class="col-sm-6">
-          <p id="view-highscore w-10"><a href="">View Highscore</a></p>
+        <div class="col-sm-4 text-left">
+          <p id="view-highscore">View Highscore</p>
         </div>
-        <div class="col-sm-6">
-          <p id="time" class="float-right float-top">0</p>
+        <div class="col-sm-4">
+
         </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-12 text-center mt-5" id="start-screen">
-          <h2>Coding Quiz Challenge</h2>
-          <button id="start" type="button" class="btn btn-primary">Start Quiz</button>
+        <div class="col-sm-4 text-right">
+          <p id="time">0</p>
         </div>
       </div>
 
-      <div id="questions" class="row">
-        <div class="col-sm-12 mt-5 pl-5">
-          <div id="title"></div><hr>
-          <div id="choices">
-            a) <button id="choice-0" type="button" class="btn btn-primary choices" value="1"></button><br>
-            b) <button id="choice-1" type="button" class="btn btn-primary choices" value="2"></button><br>
-            c) <button id="choice-2" type="button" class="btn btn-primary choices" value="3"></button><br>
-            d) <button id="choice-3" type="button" class="btn btn-primary choices" value="4"></button><br>
+      <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-6">
+          <!-- START SCREEN  -->
+          <div id="start-screen" class="text-center">
+            <h2>Coding Quiz Challenge</h2>
+            <button id="start" type="button" class="btn btn-primary">Start Quiz</button>
+          </div>
+
+          <!-- QUESTION SCREEN  -->
+          <div id="questions">
+            <div id="title"></div><hr>
+            <div id="choices">
+              a) <button id="choice-0" type="button" class="btn btn-primary choices" value="1"></button><br>
+              b) <button id="choice-1" type="button" class="btn btn-primary choices" value="2"></button><br>
+              c) <button id="choice-2" type="button" class="btn btn-primary choices" value="3"></button><br>
+              d) <button id="choice-3" type="button" class="btn btn-primary choices" value="4"></button><br>
+            </div>
           </div>
           <div id="result"></div>
-        </div>
-      </div>
 
-      <div id="highscore" class="row">
-        <div class="col-sm-12 mt-5 text-center">
+          <!-- HIGHSCORE ENTER -->
+          <div id="highscore">
             <h2>All Done !</h2>
             Your final score is <p id="point"></p>
             Your Initials: <input type="text" id="initials"></input>
             <button id="submit" type="button" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
+          </div>
 
-      <div id="highscore-board" class="text-center row">
-          <div class="col-sm-12 mt-5">
+          <!-- HIGHSCORE BOARD -->
+          <div id="highscore-board">
             <h1>Highscore</h1>
-            <p id="board"></p>
-            <button id="go-back" type="button" class="btn btn-primary">Go Back</button>
+            <table class="table text-center" id="board">
+              <tr>
+                <th>Initials</th>
+                <th>Score</th>
+              </tr>
+            </table>
+            <a href="index.html"><button type="button" class="btn btn-primary">Go Back</button></a>
             <button id="clear-highscore" type="button" class="btn btn-primary">Clear Highscore</button>
           </div>
+        </div>
+        <div class="col-sm-3">
+        </div>
       </div>
-    </div>
-    <script>
-      // Start at question #1
-      var num = 0;
-      var score = 0;
-      var time = 0;
-      $("#submit").on("click",function() {
-        $("#highscore").hide();
-        $("#highscore-board").show();
-        var initials = $("#initials").val();
-        $("#board").append(initials + "<br>");
-      });
-
-      $("#start").on("click",function() {
-        // Hide start screen
-        $("#start-screen").hide();
-
-        // Start timer
-       time = 74;
-       $("#time").text("75");
-        var timer = setInterval(myTimer, 1000);
-        // Show questions div
-        $("#questions").show();
-
-        // Set question
-        setQuestion(num);
-      });
-
-      $(".choices").on("click",function() {
-        var value = $(this).val();
-        // Check answer
-        if (value == questions[num].answer) {
-          $("#result").append("<hr> Correct !");
-          score++;
-        }
-        else {
-          $("#result").append("<hr> Wrong !");
-          time-=10;
-        }
-
-        // Move on to next question
-        num++;
-
-
-        // Delay 500ms, 1/2 a second
-        window.setTimeout(function() {
-          // Check end of questions
-          if (num == questions.length) {
-            $("#questions").hide();
-            $("#point").text(score);
-            $("#highscore").show();
-            time = 0;
-            stopTimer();
-          }
-          else
-            setQuestion(num);
-        }, 500);
-      });
-
-      function myTimer() {
-        $("#time").text(time);
-        if (time <= 0)
-          {
-            $("#questions").hide();
-            $("#point").text(score);
-            $("#highscore").show();
-            $("#time").text("0");
-            stopTimer();
-          }
-          time--;
-      }
-      function stopTimer() {
-        clearInterval(myTimer);
-        window.clearTimeout();
-      }
-      function setQuestion(num) {
-        // Clear result
-        $("#result").text("");
-        // Set questions
-        $("#title").text(questions[num].title);
-        // Set choices
-
-        for (var i = 0; i <= questions[num].choices.length; i++) {
-          $("#choice-" + i).text(questions[num].choices[i]);
-          $("#choice-" + i).attr("value",questions[num].choices[i]);
-          $("#choice-" + i).attr("text",questions[num].choices[i]);
-        }
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
