@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Day Planner</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- SCRIPT -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron text-center">
+      <h1 class="display-4">Work Day Scheduler</h1>
+      <p class="lead">This is a simple planner to help you organize your time with your daily tasks.</p>
+      </div>
+
+      <div class="row">
+        <!-- TABLE -->
+        <!-- MORNING -->
+        <table class="table">
+          <tr class="hour-bar">
+            <td class="hour text-right">9:00 AM</td>
+            <td><textarea class="note-morning hour-9" disabled></textarea></td>
+            <td class="edit-btn text-center" onclick="edit(9)">✏️</td>
+          </tr>
+          <tr class="hour-bar">
+            <td class="hour text-right">10:00 AM</td>
+            <td><textarea class="note-morning hour-10" disabled></textarea></td></td>
+            <td class="edit-btn text-center" onclick="edit(10)">💾</td>
+          </tr>
+          <tr class="hour-bar">
+            <td class="hour text-right">11:00 AM</td>
+            <td><textarea class="note-morning hour-11" disabled></textarea></td></td>
+            <td class="edit-btn text-center" onclick="edit(11)">💾</td>
+          </tr>
+          <!-- LUNCH -->
+          <tr class="hour-bar">
+            <td class="hour text-right">12:00 PM</td>
+            <td><textarea class="note-morning hour-12" disabled></textarea></td></td>
+            <td class="edit-btn text-center onclick="edit(12)"">💾</td>
+          </tr>
+          <!-- AFTERNOONG -->
+          <tr class="hour-bar">
+            <td class="hour text-right">1:00 PM</td>
+            <td><textarea class="note-morning hour-13" disabled></textarea></td></td>
+            <td class="edit-btn text-center" onclick="edit(13)">💾</td>
+          </tr>
+        </table>
+        <!-- TABLE END -->
+      </div>
+
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
