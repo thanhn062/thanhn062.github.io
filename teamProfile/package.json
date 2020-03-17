@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "inquirer": "^7.1.0",
+    "jest": "^25.1.0",
+    "util": "^0.12.2"
+  }
+}
