@@ -41,115 +41,125 @@ class Intern extends Employee {
   getSchool() {return this.school}
   getRole() {return "Manager"}
 }
-
-getUserInput();
-
-async function getUserInput() {
-  try {
-    console.log("Let's put together an engineer team.");
-    var manager = await inquirer.prompt([
-      {
-        type: "input",
-        message: "An engineer team MUST have a manager, enter the manager's name:",
-        name: "name",
-      },
-      {
-        type: "input",
-        message: "Enter manager's ID:",
-        name: "id",
-      },
-      {
-        type: "input",
-        message: "Enter manager's email:",
-        name: "email",
-      },
-      {
-        type: "input",
-        message: "Enter manager's officer number:",
-        name: "officeNumber",
-      }
-    ]);
-    // Create manager instance
-    var manager = new Manager(manager.name, manager.id, manager.email, manager.officeNumber);
-
-    // Create empty array for engineers & interns
-    var engineers = [];
-    var interns = [];
-
-    // Loop to add engineers & interns
-    for(var i = 1;i > 0; i++) {
-      const add = await inquirer.prompt({
-          type: "list",
-          message: "Do you want to add more Engineer or Intern into the team ?",
-          name: "choice",
-          choices: [
-            "Engineer",
-            "Intern",
-            "No"
-          ]
-        });
-
-        if (add.choice === "Engineer") {
-          var engineer = await inquirer.prompt([
-            {
-              type: "input",
-              message: "Enter the engineer's name:",
-              name: "name",
-            },
-            {
-              type: "input",
-              message: "Enter engineer's ID:",
-              name: "id",
-            },
-            {
-              type: "input",
-              message: "Enter engineer's email:",
-              name: "email",
-            },
-            {
-              type: "input",
-              message: "Enter engineer github:",
-              name: "github",
-            }
-          ]);
-          // Add new engineer to the array
-          engineers.push(engineer);
-        }
-        else if (add.choice === "Intern") {
-          var intern = await inquirer.prompt([
-            {
-              type: "input",
-              message: "Enter the intern's name:",
-              name: "name",
-            },
-            {
-              type: "input",
-              message: "Enter intern's ID:",
-              name: "id",
-            },
-            {
-              type: "input",
-              message: "Enter intern's email:",
-              name: "email",
-            },
-            {
-              type: "input",
-              message: "Enter intern's school:",
-              name: "github",
-            }
-          ]);
-          // Add new intern to the array
-          engineers.push(intern);
-        }
-        else
-          break;
-      }
-  } catch (err) {
-    console.log(err);
+// Create empty array for engineers & interns
+var engineers = [];
+var interns = [];
+console.log("Let's put together an engineer team.");
+inquirer.prompt([
+  {
+    type: "input",
+    message: "An engineer team MUST have a manager, enter the manager's name:",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Enter manager's ID:",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "Enter manager's email:",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "Enter manager's officer number:",
+    name: "officeNumber",
   }
+]).then(function(ans) {
+  // Create manager instance
+  var manager = new Manager(ans.name, ans.id, ans.email, ans.officeNumber);
+  addMember();
+});
+
+
+function addMember() {
+  inquirer.prompt({
+    type: "list",
+    message: "Do you want to add more Engineer or Intern into the team ?",
+    name: "choice",
+    choices: ["Engineer","Intern","No"]
+  }).then(function(ans) {
+      if (ans.choice === "Engineer") {
+        addEngineer();
+      }
+      else if (ans.choice === "Intern") {
+        addIntern();
+      }
+      else if (ans.choice === "No") {
+        return;
+      }
+  });
+}
+function addEngineer() {
+  inquirer.prompt([
+  {
+    type: "input",
+    message: "Enter the engineer's name:",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Enter engineer's ID:",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "Enter engineer's email:",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "Enter engineer github:",
+    name: "github",
+  }
+  ]).then(function(ans) {
+    // Add new engineer to the array
+    var engineer = {
+      name: ans.name,
+      id: ans.id,
+      email: ans.email,
+      github: ans.github
+    }
+    engineers.push(engineer);
+    addMember();
+  });
 }
 
-module.exports = getUserInput;
+function addIntern() {
+  inquirer.prompt([
+  {
+    type: "input",
+    message: "Enter the intern's name:",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "Enter intern's ID:",
+    name: "id",
+  },
+  {
+    type: "input",
+    message: "Enter intern's email:",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "Enter intern's school:",
+    name: "school",
+  }
+  ]).then(function(ans) {
+  // Add new intern to the array
+  var intern = {
+    name: ans.name,
+    id: ans.id,
+    email: ans.email,
+    school: ans.school
+  }
+  engineers.push(intern);
+  addMember();
+  });
+}
 module.exports = Manager;
 module.exports = Intern;
 module.exports = Engineer;
