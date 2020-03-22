@@ -1,49 +1,16 @@
+// TODO -> GENERATE HTML
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
-const fs = require('fs');
-const util = require("util");
+const path = require("path");
+const fs = require("fs");
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+const render = require("./lib/htmlRenderer");
 
-// Employee
-class Employee  {
-  constructor(name, id, email) {
-    this.name = name;
-    this.id = id;
-    this.email = email;
-  }
-  getName() {return this.name}
-  getId() {return this.id}
-  getEmail() {return this.email}
-  getRole() {return "Employee"}
-};
-
-// Manager
-class Manager extends Employee {
-  constructor(name, id, email, officeNumber) {
-    super(name, id, email);
-    this.officeNumber = officeNumber;
-  }
-  getRole() {return "Manager"}
-}
-// Engineer
-class Engineer extends Employee {
-  constructor(name, id, email, github) {
-    super(name, id, email);
-    this.github = github;
-  }
-  getGithub() {return this.github}
-  getRole() {return "Manager"}
-}
-// Intern
-class Intern extends Employee {
-  constructor(name, id, email, school) {
-    super(name, id, email);
-    this.school = school;
-  }
-  getSchool() {return this.school}
-  getRole() {return "Manager"}
-}
-// Create empty array for engineers & interns
-var engineers = [];
-var interns = [];
+const  engineers = [];
+const  interns = [];
 console.log("Let's put together an engineer team.");
 inquirer.prompt([
   {
@@ -67,11 +34,10 @@ inquirer.prompt([
     name: "officeNumber",
   }
 ]).then(function(ans) {
-  // Create manager instance
-  var manager = new Manager(ans.name, ans.id, ans.email, ans.officeNumber);
+  // Create manager
+  var manager = new Manager(ans.id, ans.name, ans.email, ans.officeNumber);
   addMember();
 });
-
 
 function addMember() {
   inquirer.prompt({
@@ -116,8 +82,8 @@ function addEngineer() {
   ]).then(function(ans) {
     // Add new engineer to the array
     var engineer = {
-      name: ans.name,
       id: ans.id,
+      name: ans.name,
       email: ans.email,
       github: ans.github
     }
@@ -151,8 +117,8 @@ function addIntern() {
   ]).then(function(ans) {
   // Add new intern to the array
   var intern = {
-    name: ans.name,
     id: ans.id,
+    name: ans.name,
     email: ans.email,
     school: ans.school
   }
@@ -160,15 +126,3 @@ function addIntern() {
   addMember();
   });
 }
-module.exports = Manager;
-module.exports = Intern;
-module.exports = Engineer;
-module.exports = Employee;
-
-// Hire new employee
-//var emp_1 = new Employee("Thanh", 0, "510thanh.ngo@gmail.com");
-//var emp_2 = new Manager("Thu", 1, "anhtng042020@yahoo.com", 999);
-
-//console.log(emp_1.getRole());
-//console.log(emp_2.getRole());
-//console.log(emp_2.officeNumber);
