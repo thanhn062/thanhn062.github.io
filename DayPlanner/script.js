@@ -4,7 +4,6 @@ load();
 function update() {
   $('#clock').html(moment().format('LLLL'));
   var currentHour = moment().format('H');
-  currentHour = 12;
 
   for (var i = 9; i <= 17; i++) {
     if (i < currentHour)
