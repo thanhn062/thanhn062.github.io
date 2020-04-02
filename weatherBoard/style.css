@@ -4,7 +4,9 @@
   font-weight: bold;
   color: white;
 }
+.list-group-item {
 
+}
 // CUSTOM SEARCH
 #custom-search-form {
     margin:0;

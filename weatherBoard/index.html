@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
   </head>
   <body>
@@ -17,31 +17,44 @@
       <!-- TOP BAR -->
       <div class="row">
         <div class="col-lg-12 text-center top-bar">
-          Weather Dasboard
+          Weather Dashboard
         </div>
       </div>
 
       <div class="row">
         <div class="col-lg-3">
-
               Search for a City:
               <!-- Search form -->
               <form class="form-inline" style="width: 100%">
 
-                <input style="width: 80%" class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button style="width: 15%"  class="btn btn-outline-success ml-1" type="submit"><i class="fas fa-search"></i></button>
+                <input style="width: 80%" class="form-control" type="search" placeholder="Search" aria-label="Search" id="search">
+                <button style="width: 15%"  class="btn btn-outline-success ml-1"><i class="fas fa-search"></i></button>
               </form>
 
+                <div class="card mt-2" style="width: auto;">
+                  <ul class="list-group list-group-flush" id="results">
+                  </ul>
+                </div>
 
         </div>
         <div class="col-lg-9">
           <div class="card mt-3">
             <div class="card-body">
-              Atlanta<br>
-              temperature<br>
-              Humidity<br>
-              Wind Speed<br>
-              UV Index<br>
+              <div class="city">
+
+              </div>
+              <div class="temperature">
+
+              </div>
+              <div class="humidity">
+
+              </div>
+              <div class="speed">
+
+              </div>
+              <div class="UV-index">
+
+              </div>
             </div>
           </div>
           <div class="5-day-forecast mt-3">
