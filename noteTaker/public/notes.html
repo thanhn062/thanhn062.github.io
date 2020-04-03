@@ -32,7 +32,17 @@
       <div class="col-8">
         <input class="note-title" placeholder="Note Title" maxlength="28" type="text"><br>
         <textarea class="note-textarea" placeholder="Note Text"></textarea><br>
-        <button style="width: 15%"  class="btn btn-outline-success ml-1">Submit</button>
+        <button class="btn btn-outline-success ml-1" onclick="submit()">Submit</button>
+        <script>
+        function submit() {
+          $.ajax({
+            url: "",
+            type: "POST"
+          }).then(function(res) {
+            console.log(res);
+          });
+        }
+        </script>
       </div>
     </div>
   </div>
