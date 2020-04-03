@@ -1,11 +1,19 @@
+.city {
+  font-size: 1.5em;
+}
 .top-bar {
-  background: #666666;
+  background: #4278f5;
   font-size: 2em;
   font-weight: bold;
   color: white;
 }
-.list-group-item {
-
+.day-forecast {
+  position: relative;
+  display: inline-block;
+  font-size: 1em;
+  background-color: #4278f5;
+  margin-top: 10px;
+  color: white;
 }
 // CUSTOM SEARCH
 #custom-search-form {

@@ -1,6 +1,7 @@
 var d = new Date();
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
-
+// Default area
+showResult(5389489);
   $(".btn").click(function() {
     event.preventDefault();
     var searchQuery = $("#search").val();
@@ -36,9 +37,8 @@ function showResult(id) {
     url: query,
     method: "GET"
   }).then(function(res) {
-    console.log(res);
     $(".city").text(res.name + " (" + strDate + ")");
-    $(".temperature").text("Temperature: "+ res.main.temp);
+    $(".temperature").text("Temperature: "+ Math.ceil((res.main.temp -273.15)*9/5+32) +"°F");
     $(".humidity").text("Humidity: " + res.main.humidity);
     $(".speed").text("Wind speed: " + res.wind.speed);
     query = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat="+res.coord.lat+"&lon="+res.coord.lon + "&appid=" + api_key;
@@ -46,7 +46,6 @@ function showResult(id) {
       url: query,
       method: "GET"
     }).then(function(res) {
-      console.log(res);
       $(".UV-index").text("UV Index: "+res[0].value);
     });
   });
@@ -59,5 +58,11 @@ function showResult(id) {
     methoid: "GET"
   }).then(function(res) {
     console.log(res);
+    $(".day1").html(res.list[0].dt_txt.substr(0,10) + "<br><img src=http://openweathermap.org/img/wn/" + res.list[0].weather[0].icon +"@2x.png>" + "<br>Temp: "+ Math.ceil((res.list[0].main.temp -273.15)*9/5+32) + " °F<br>Humidity: " + res.list[0].main.humidity);
+    $(".day2").html(res.list[7].dt_txt.substr(0,10) + "<br><img src=http://openweathermap.org/img/wn/" + res.list[7].weather[0].icon +"@2x.png>" + "<br>Temp: "+ Math.ceil((res.list[7].main.temp -273.15)*9/5+32) + " °F<br>Humidity: " + res.list[7].main.humidity);
+    $(".day3").html(res.list[15].dt_txt.substr(0,10) + "<br><img src=http://openweathermap.org/img/wn/" + res.list[15].weather[0].icon +"@2x.png>" + "<br>Temp: "+ Math.ceil((res.list[15].main.temp -273.15)*9/5+32) + " °F<br>Humidity: " + res.list[15].main.humidity);
+    $(".day4").html(res.list[23].dt_txt.substr(0,10) + "<br><img src=http://openweathermap.org/img/wn/" + res.list[23].weather[0].icon +"@2x.png>" + "<br>Temp: "+ Math.ceil((res.list[23].main.temp -273.15)*9/5+32) + " °F<br>Humidity: " + res.list[23].main.humidity);
+    $(".day5").html(res.list[31].dt_txt.substr(0,10) + "<br><img src=http://openweathermap.org/img/wn/" + res.list[31].weather[0].icon +"@2x.png>" + "<br>Temp: "+ Math.ceil((res.list[31].main.temp -273.15)*9/5+32) + " °F<br>Humidity: " + res.list[31].main.humidity);
+
   });
 }
