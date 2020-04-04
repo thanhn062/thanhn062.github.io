@@ -9,6 +9,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
   var app = express();
   // Set port
   var PORT = process.env.PORT || 8080;
+  app.use(express.static("public"));
   // Sets up the Express app to handle data parsing
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
@@ -53,7 +54,7 @@ const writeFileAsync = util.promisify(fs.writeFile);
           data.splice(i,i);
     }
     await writeFileAsync("./db/db.json",JSON.stringify(data));
-    return res.json(data);
+    return res.end();
   });
 
   // Start the server
