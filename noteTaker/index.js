@@ -55,19 +55,6 @@ const writeFileAsync = util.promisify(fs.writeFile);
     await writeFileAsync("./db/db.json",JSON.stringify(data));
     return res.json(data);
   });
-  //app.delete("/api/notes/:id", function(req, res) {
-    // load data
-    //console.log(req.params.id);
-    //var data = await readFileAsync("./db/db.json","utf8");
-    //data = JSON.parse(data);
-    //console.log(data);
-  //  for (var i = 0; i < data.length; i++) {
-    //  console.log(data[i]);
-    //}
-
-    //await writeFileAsync("./db/db.json",JSON.stringify(data));
-    //return res.json(data);
-  //});
 
   // Start the server
   app.listen(PORT, function() {

@@ -33,25 +33,12 @@
         <input class="note-title" placeholder="Note Title" maxlength="28" type="text"><br>
         <textarea class="note-textarea" placeholder="Note Text"></textarea><br>
         <button class="btn btn-outline-success ml-1" onclick="submit()">Submit</button>
-        <script>
-        function submit() {
-          var note = {
-            title: $(".note-title").val(),
-            text: $(".note-textarea").val()
-          };
-          $.ajax("/api/notes", {
-            type: "POST",
-            data: note
-          }).then(function() {
-            location.replace("/");
-          });
-        }
-        </script>
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="/assets/js/index.js"></script>
+  <script src="/assets/js/script.js" type="text/javascript"></script>
+  <script src="/assets/js/index.js" type="text/javascript"></script>
 </body>
 
 </html>
