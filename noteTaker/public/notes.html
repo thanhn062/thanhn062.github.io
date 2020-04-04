@@ -35,11 +35,15 @@
         <button class="btn btn-outline-success ml-1" onclick="submit()">Submit</button>
         <script>
         function submit() {
-          $.ajax("/api/notes"{
+          var note = {
+            title: $(".note-title").val(),
+            text: $(".note-textarea").val()
+          };
+          $.ajax("/api/notes", {
             type: "POST",
-
-          }).then(function(res) {
-            console.log(res);
+            data: note
+          }).then(function() {
+            location.replace("/");
           });
         }
         </script>
