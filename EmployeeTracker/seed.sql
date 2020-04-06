@@ -1,28 +1,18 @@
 USE `employee_DB`;
 
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("John","Doe",,);
+VALUES ("John","Doe",1,3); -- 1
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Mike","Chan",2,1); -- 2
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Ashley","Rodriguez",3,); -- 3
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Kevin","Tupik",4,3); -- 4
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Malia","Brown",5,); -- 5
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Sarah","Lourd",6,); -- 6
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Tom","Allen",7,6); -- 7
 INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
-INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
-INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
-INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
-INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
-INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
-VALUES ("","",,);
+VALUES ("Christian","Eckenrode",3,2); -- 8
