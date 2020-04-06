@@ -27,10 +27,10 @@ CREATE TABLE employee (
 );
 
 -- Assign department id
-INSERT INTO `department` (name) VALUES ("Sales");
-INSERT INTO `department` (name) VALUES ("Engineering");
-INSERT INTO `department` (name) VALUES ("Finance");
-INSERT INTO `department` (name) VALUES ("Legal");
+INSERT INTO `department` (name) VALUES ("Sales"); -- 1
+INSERT INTO `department` (name) VALUES ("Engineering"); -- 2
+INSERT INTO `department` (name) VALUES ("Finance"); -- 3
+INSERT INTO `department` (name) VALUES ("Legal"); -- 4
 
 -- Assign role id & department it belong to
 INSERT INTO `role` (title, salary, department_id)
