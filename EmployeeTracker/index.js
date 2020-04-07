@@ -14,6 +14,10 @@ connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId + "\n");
   // Initial menu
+  viewMenu();
+
+});
+function viewMenu() {
   inquirer.prompt([
     {
       type: "list",
@@ -40,8 +44,7 @@ connection.connect(function(err) {
 
       }
   });
-});
-
+}
 function viewEmployees() {
   var query = `
   SELECT employee.id, employee.first_name, employee.last_name, role.title,
