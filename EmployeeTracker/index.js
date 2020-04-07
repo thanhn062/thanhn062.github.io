@@ -15,8 +15,8 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId + "\n");
   // Initial menu
   viewMenu();
-
 });
+
 function viewMenu() {
   inquirer.prompt([
     {
@@ -38,8 +38,12 @@ function viewMenu() {
       case "View Employees":
         viewEmployees();
         break;
-      case "View Department":
-        //viewDepartment();
+      case "View Departments":
+        viewDepartments();
+        break;
+      case "View Roles":
+        viewRoles();
+        break;
       default:
 
       }
@@ -59,6 +63,38 @@ function viewEmployees() {
   connection.query(query, (err, res) => {
     if (err) throw err;
     console.table(res);
-    connection.end();
+    viewMenu();
   });
+}
+function viewDepartments() {
+  var query = `SELECT * FROM department`;
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    viewMenu();
+  });
+}
+function viewRoles() {
+  var query = `
+  SELECT role.id,role.title,department.name as department
+  FROM role
+  LEFT JOIN department ON (department.id = role.department_id)
+  `;
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    viewMenu();
+  });
+}
+function addEmployee() {
+
+}
+function addRole() {
+
+}
+function addDepartment() {
+
+}
+function updateEmpRole() {
+  
 }
