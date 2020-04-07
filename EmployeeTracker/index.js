@@ -43,7 +43,16 @@ connection.connect(function(err) {
 });
 
 function viewEmployees() {
-  var query = "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, employee.manager_id AS manager FROM employee LEFT JOIN role ON (employee.role_id = role.id) LEFT JOIN department ON (role.department_id = department.id)";
+  var query = `
+  SELECT employee.id, employee.first_name, employee.last_name, role.title,
+  department.name AS department, role.salary, CONCAT(e2.first_name," ",e2.last_name) AS manager
+  FROM employee
+  LEFT JOIN role
+  ON (employee.role_id = role.id)
+  LEFT JOIN department
+  ON (role.department_id = department.id)
+  LEFT JOIN employee e2
+  ON employee.manager_id = e2.id`;
   connection.query(query, (err, res) => {
     if (err) throw err;
     console.table(res);
