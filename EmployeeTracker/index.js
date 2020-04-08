@@ -60,6 +60,8 @@ function viewMenu() {
       case "Add Department":
         addDepartment();
         break;
+      case "Update Employee Role":
+        updateEmpRole();
       }
   });
 }
@@ -138,7 +140,7 @@ async function addEmployee() {
   // -- PICK EMPLOYEE'S MANAGER --
 
   // Get a list with all employees
-  var allEmp = await query(`SELECT CONCAT(first_name, " ",  last_name) AS name FROM employee`);
+  var allEmp = await query(`SELECT CONCAT(id, " ", first_name, " ",  last_name) AS name FROM employee`);
 
   // Add none option into the manager list
   allEmp.push("None");
@@ -159,20 +161,14 @@ async function addEmployee() {
     });
 
 
-  // Seperate first name * last name of the employee
-  const empName = manager.split(" ");
+  // Get employee's id
+  const employee = manager.split(" ");
 
-  var manager_id;
+  var manager_id = employee[0];
 
   // If pick None
-  if (empName[0] == "None") {
+  if (employee[0] == "None")
     manager_id = "null";
-  }
-  else {
-    // Get employee's ID bu using last name
-    var manager = await query(`SELECT id FROM employee WHERE first_name="${empName[0]}" AND last_name="${empName[1]}"`);
-    manager_id = manager[0].id;
-  }
 
   console.log(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}","${last_name}",${role[0].id},${manager_id})`);
   // Run SQL query to add the employee
@@ -216,4 +212,36 @@ async function addRole() {
     });
   });
   });
+}
+async function addDepartment() {
+  var { name } = await inquirer.prompt({
+    message: "Enter department's name:",
+    name: "name"
+  });
+  await connection.query(`INSERT INTO department (name) VALUES ("${name}")`, (err) => {
+    if (err)
+      console.log(err);
+    console.log("Department added !");
+    viewMenu();
+  });
+}
+async function updateEmpRole() {
+
+  // Pick employee to update
+  var allEmp = await query((`SELECT CONCAT(id , " ", first_name, " ",  last_name) AS name FROM employee`));
+  var { employee } = await inquirer.prompt({
+    message: "Choose an employee to update role:",
+    name: "employee",
+    type: "list",
+    choices: allEmp
+  });
+
+  // Search for employee's id
+
+  // Get first name & last name
+  var name = employee.split(" ");
+  // Search by first & last name
+  var employee = await query(`SELECT id FROM employee where first_name="${name[0]}" AND last_name="${name[1]}"`);
+  // Get first result in case theres
+  console.log(employee);
 }
