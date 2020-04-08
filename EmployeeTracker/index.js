@@ -1,8 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-
-
-
+var util = require("util");
+// Database information
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -10,6 +9,13 @@ var connection = mysql.createConnection({
   pasword: "",
   database: "employee_db"
 });
+// Promisify query
+const query = util.promisify(connection.query).bind(connection);
+// Global variables
+var departments = [];
+var managers = [];
+var roles = [];
+var role_id;
 
 connection.connect(function(err) {
   if (err) throw err;
@@ -48,6 +54,12 @@ function viewMenu() {
       case "Add Employee":
         addEmployee();
         break;
+      case "Add Role":
+        addRole();
+        break;
+      case "Add Department":
+        addDepartment();
+        break;
       }
   });
 }
@@ -78,7 +90,7 @@ function viewDepartments() {
 }
 function viewRoles() {
   var query = `
-  SELECT role.id,role.title,department.name as department
+  SELECT role.id,role.title,role.salary,department.name as department
   FROM role
   LEFT JOIN department ON (department.id = role.department_id)
   `;
@@ -89,110 +101,119 @@ function viewRoles() {
   });
 }
 async function addEmployee() {
+  // -- GET EMPLOYEE'S FULL NAME --
   var { first_name } = await inquirer.prompt({
     message: "Enter employee's first name:",
     name: "first_name"
   });
-  console.log(first_name);
   var { last_name } = await inquirer.prompt({
     message: "Enter employee's last name:",
     name: "last_name"
   });
-  console.log(last_name);
-  var { role } = await inquirer.prompt({
+
+  // -- PICK EMPLOYEE'S ROLE --
+
+  // Get all titles from role table
+  var allRole = await query("SELECT title FROM role");
+
+  // empty global roles array
+  roles = [];
+
+  // Add  roles into array roles[]
+  for (var i = 0; i < allRole.length; i++) {
+    roles.push(allRole[i].title);
+  };
+
+  // Show all available role in database
+  var { role } = await inquirer.prompt(
+    {
     message: "Pick employee's role:",
     name: "role",
     type: "list",
-    choices: [
-      "Sales person",
-      "Sales Lead",
-      "Software Engineer",
-      "Accountant",
-      "Lead Engineer",
-      "Lawyer",
-      "Legal Team Lead"
-    ]
+    choices: roles
   });
-  console.log(role);
-  // Convert choices into ID
-  var role_id = 0;
-  if (role == "Sales Lead") role_id = 1;
-  else if (role == "Sales person") role_id = 2;
-  else if (role == "Lead Engineer") role_id = 3;
-  else if (role == "Software Engineer") role_id = 4;
-  else if (role == "Accountant") role_id = 5;
-  else if (role == "Legal Team Lead") role_id = 6;
-  else if (role == "Lawyer") role_id = 7;
-  console.log(role_id);
-  // Get manager id
-  var { manager_id } = await inquirer.prompt({
-    message: "Enter employee's manager's ID:",
-    type: "input",
-    name: "manager_id"
-  });
-  if (!manager_id)
+  // Find role's id by role's name
+  role = await query(`SELECT id FROM role WHERE title="${role}"`);
+
+  // -- PICK EMPLOYEE'S MANAGER --
+
+  // Get a list with all employees
+  var allEmp = await query(`SELECT CONCAT(first_name, " ",  last_name) AS name FROM employee`);
+
+  // Add none option into the manager list
+  allEmp.push("None");
+
+  // Add  employees into allEmp array
+  managers =[];
+  for (var i = 0; i < allEmp.length; i++) {
+    managers.push(allEmp[i].name);
+  };
+
+  // Pick employee's manager
+  var { manager } = await inquirer.prompt(
+    {
+      message: "Pick employee's manager:",
+      name: "manager",
+      type: "list",
+      choices: allEmp
+    });
+
+
+  // Seperate first name * last name of the employee
+  const empName = manager.split(" ");
+
+  var manager_id;
+
+  // If pick None
+  if (empName[0] == "None") {
     manager_id = "null";
-  console.log(manager_id);
+  }
+  else {
+    // Get employee's ID bu using last name
+    var manager = await query(`SELECT id FROM employee WHERE first_name="${empName[0]}" AND last_name="${empName[1]}"`);
+    manager_id = manager[0].id;
+  }
+
+  console.log(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}","${last_name}",${role[0].id},${manager_id})`);
   // Run SQL query to add the employee
-  connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}","${last_name}",${role_id},${manager_id})`, (err, res) => {
+  await connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${first_name}","${last_name}",${role[0].id},${manager_id})`, (err, res) => {
     if (err) throw err;
       console.log("Employee added !")
     viewMenu();
   });
 }
+async function addRole() {
+  // Set empty variables
+  departments =  [];
 
+  var { title } = await inquirer.prompt({
+    message: "Enter role's title:",
+    name: "title"
+  });
+  var { salary } = await inquirer.prompt({
+    message: "Enter role's salary:",
+    name: "salary"
+  });
+  // Add all existing departments into choice
+  await connection.query("SELECT name FROM department", (err, ans) => {
+  ans.forEach((item, i) => {
+    departments.push(item.name);
+  });
 
-
-/*
-
-
-
- function getEmpInfo() {
-    // Get Employee's name
-     inquirer.prompt([
-       {
-         message: "Enter employee's first name:",
-         name: "first_name"
-       },
-       {
-         message: "Enter employee's last name:",
-         name: "last_name"
-       },
-       {
-         message: "Employee's department:",
-         name: "department",
-         type: "list",
-         choices: [
-           "Sales",
-           "Engineering",
-           "Finance",
-           "Legal"
-         ]
-       }
-     ]);
-  }
-/*
-console.log(department);
-console.log(name);
-function addRole() {
-
+  inquirer.prompt({
+    message: "Pick role's department:",
+    type: "list",
+    name: "department",
+    choices: departments
+  }).then(ans => {
+    // find department_id of the picked department
+    connection.query(`SELECT id FROM department WHERE name="${ans.department}"`, (err, ans) => {
+      var department_id = ans[0].id;
+      connection.query(`INSERT INTO role (title, salary, department_id) VALUES ("${title}",${salary},${department_id})`, (err) => {
+        console.log("Role added !");
+        viewMenu();
+      });
+    });
+  });
+  });
 }
-function addDepartment() {
-
-}
-function updateEmpRole() {
-
-}
-
-// Pick department
-
-
-      var { manager_id } = await
-        inquirer.prompt({
-          message: "Employee's manager ID:",
-          name: "manager_id",
-          type: "input"
-        });
-        return name, role_id, manager_id;
-}
-*/
