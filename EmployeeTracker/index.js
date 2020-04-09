@@ -235,13 +235,31 @@ async function updateEmpRole() {
     type: "list",
     choices: allEmp
   });
-
-  // Search for employee's id
-
-  // Get first name & last name
+  // Search for employee's ID
+  // Split the string e.g ['1','John','Doe']
   var name = employee.split(" ");
-  // Search by first & last name
-  var employee = await query(`SELECT id FROM employee where first_name="${name[0]}" AND last_name="${name[1]}"`);
-  // Get first result in case theres
-  console.log(employee);
+  // Search by ID
+  var employee = await query(`SELECT * FROM employee WHERE id = ${name[0]}`);
+  // Choose employee's new role
+  var roles = [];
+  // Get all role
+  var allRole = await query(`SELECT title FROM role`)
+  // Loop through all roles to get title only
+  for (var i = 0; i < allRole.length; i++) {
+    roles.push(allRole[i].title);
+  }
+  var { role } = await inquirer.prompt({
+    message: "Choose employee's new role:",
+    name: "role",
+    type: "list",
+    choices: roles
+  });
+  // Get role ID
+  var newRole = await query(`SELECT id FROM role WHERE title="${role}"`)
+  // Update in query
+  connection.query(`UPDATE employee SET role_id = ${newRole[0].id} WHERE id = ${name[0]}`, (err, res) => {
+    if (err) throw err;
+    console.log("Updated new role for the employee.");
+    viewMenu();
+  });
 }
