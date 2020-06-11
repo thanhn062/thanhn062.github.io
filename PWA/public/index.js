@@ -1,16 +1,5 @@
 let transactions = [];
 let myChart;
-const db = "";
-// Index DB
-const request = window.indexedDB.open("transactionList", 1);
-request.onupgradeneeded =  ({target}) => {
-  console.log(target);
-  db = target.result;
-  const objectStore = db.createObjectStore("transactionList");
-}
-request.onsuccess = event => {
-  console.log(request.result.name);
-};
 
 fetch("/api/transaction")
   .then(response => {
@@ -161,37 +150,3 @@ document.querySelector("#add-btn").onclick = function() {
 document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };
-
-function saveRecord(data){
-  // Check value
-  console.log(data);
-  // Create new obj to insert into DB
-  var newTransaction = [
-    {
-      transactionDate: data.date,
-      transactionValue: data.value,
-      transactionName: data.name
-    }
-  ];
-  // open read/write DB transaction
-  var transaction = db.transaction(["transactionList"],"readwrite");
-  // report on the success of the transaction completing, when everything is done
-  transaction.oncomplete = function(event) {
-    note.innerHTML += '<li>Transaction completed.</li>';
-  };
-
-  transaction.onerror = function(event) {
-  note.innerHTML += '<li>Transaction not opened due to error. Duplicate items not allowed.</li>';
-  };
-  // create an object store on the transaction
-  var objectStore = transaction.objectStore("transactionList");
-  console.log(objectStore.keyPath);
-
-  // Make a request to add our newItem object to the object store
-  var objectStoreRequest = objectStore.add(newTransaction[0]);
-
-  objectStoreRequest.onsuccess = function(event) {
-    // report the success of our request
-    note.innerHTML += '<li>Request successful.</li>';
-  };
-}
