@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+ 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>How Many Days Since</title>
+	<!-- FONT AWESOME -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- JQUERY -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- MOMENTS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+	<!-- LOCAL FILES -->
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<link rel="stylesheet" href="./circle.css">
+
+	<script src="./script.js"></script>
+</head>
+<body>
+	<!-- TOP BAR -->
+	<nav class="navbar sticky-top navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#" style="width: 100%; text-align: center">How Many Days Since I</a>
+	</nav>
+	<!-- CONTAINER START -->
+	<div class="container">
+	<!-- FIXED BOTTOM NAV -->
+	<nav class="navbar fixed-bottom navbar-expand-lg" style="border-top: 1px solid black;">
+		<form class="form-inline" style="width: 100%">
+	   		 <button id="nav-reminder" class="btn btn-lg activeNav" type="button"><i class="fa fa-hourglass fa-3x" aria-hidden="true"></i><br><br>Reminder</button>
+	   		 <button id="nav-quit" class="btn btn-lg" type="button"><i class="fa fa-ban fa-3x" aria-hidden="true"></i><br><br>Quit Streak</button>
+	   		 <button id="nav-stat" class="btn btn-lg" type="button"><i class="fa fa-bar-chart fa-3x" aria-hidden="true"></i><br><br>Stat</button>
+	   		 <button id="nav-setting" class="btn btn-lg" type="button"><i class="fa fa-cog fa-3x" aria-hidden="true"></i><br><br>Setting</button>
+	  	</form>
+	</nav>
+	<!-- REMINDER LIST -->
+	<div id="reminder-list">
+	</div>
+	<!-- ADD MENU -->
+	<div class="alert alert-warning mt-2" role="alert">
+		  Please fill out all required fields.
+	</div>
+	<div class="add-menu">
+		<form>
+			<div class="form-group">
+				<label for="reminder-name">Reminder name</label>
+				<input type="text" maxlength="30" class="form-control" id="reminder-name">
+				<small class="form-text text-muted">30 characters</small>
+			</div>
+			<div class="form-group">
+				<label for="reminder-name">Max day count</label>
+				<input type="number" class="form-control" id="reminder-day">
+				<small class="form-text text-muted">The reminder will still count past the maximum day, this is mainly for gauge meter</small>
+			</div>
+			<div class="form-group">
+				<label for="reminder-date">Date</label>
+				<input placeholder="" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="reminder-date">
+			</div>
+			<button type="button" class="btn btn-add btn-outline-primary btn-block">Add</button>
+			<button type="button" class="btn btn-cancel btn-outline-danger btn-block">Cancel</button>
+		</form>
+	</div>
+	<div class="edit-menu">
+		<form>
+			<div class="form-group">
+				<label for="reminder-name">Reminder name</label>
+				<input type="text" maxlength="30" class="form-control" id="reminder-name-edit">
+				<small class="form-text text-muted">30 characters</small>
+			</div>
+			<div class="form-group">
+				<label for="reminder-name">Max day count</label>
+				<input type="number" class="form-control" id="reminder-day-edit">
+				<small class="form-text text-muted">The reminder will still count past the maximum day, this is mainly for gauge meter</small>
+			</div>
+			<div class="form-group">
+				<label for="reminder-date">Date</label>
+				<input placeholder="" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="reminder-date-edit">
+			</div>
+			<button type="button" class="btn btn-edit btn-outline-primary btn-block">Edit</button>
+			<button type="button" class="btn btn-cancel btn-outline-danger btn-block">Cancel</button>
+		</form>
+	</div>
+	<!-- ADD BUTTON -->
+	<button type="button" class="btn btn-dark btn-circle btn-xl"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>
+
+	</div>
+	<!-- CONTAINER END -->
+</body>
+</html>
