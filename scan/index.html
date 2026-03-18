@@ -94,15 +94,13 @@
     <h1>Please wait...</h1>
     <p id="status">Opening content.</p>
     <div class="actions">
-      <button id="playBtn" type="button">Continue</button>
-      <a id="openBtn" class="button secondary hidden" href="./media.mp4?v=1">Open video</a>
+      <button id="playBtn" type="button">Tap here</button>
     </div>
-    <p class="note" id="note">Tap Continue if nothing happens.</p>
+    <p class="note" id="note">Tap here if nothing happens.</p>
   </main>
   <script>
     const player = document.getElementById('player');
     const playBtn = document.getElementById('playBtn');
-    const openBtn = document.getElementById('openBtn');
     const status = document.getElementById('status');
     const note = document.getElementById('note');
 
@@ -117,13 +115,12 @@
         try {
           player.muted = true;
           await player.play();
-          status.textContent = 'Tap Continue for audio.';
+          status.textContent = 'Tap here.';
           note.textContent = '';
         } catch (innerErr) {
-          status.textContent = 'Tap Continue.';
+          status.textContent = 'Tap here.';
           note.textContent = '';
         }
-        openBtn.classList.remove('hidden');
       }
     }
 
@@ -134,16 +131,13 @@
         status.textContent = 'Playing.';
         note.textContent = '';
         playBtn.classList.add('hidden');
-        openBtn.classList.add('hidden');
       } catch (err) {
-        status.textContent = 'Open the video directly.';
-        openBtn.classList.remove('hidden');
+        window.location.href = './media.mp4?v=1';
       }
     }
 
     playBtn.addEventListener('click', unlockPlayback);
     document.body.addEventListener('click', (event) => {
-      if (event.target === openBtn) return;
       if (event.target === playBtn) return;
       unlockPlayback();
     });
@@ -152,7 +146,6 @@
       status.textContent = 'Media file missing. Upload media.mp4 into this folder.';
       note.textContent = '';
       playBtn.classList.add('hidden');
-      openBtn.classList.remove('hidden');
     });
 
     tryPlay();
