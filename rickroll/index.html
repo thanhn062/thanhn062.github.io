@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Surprise</title>
+  <title>One second...</title>
   <meta name="robots" content="noindex,nofollow">
   <style>
     :root {
@@ -32,6 +32,7 @@
       background: rgba(23, 26, 33, 0.92);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
       text-align: center;
+      transition: transform 180ms ease, box-shadow 180ms ease;
     }
     h1 {
       margin: 0 0 10px;
@@ -83,47 +84,76 @@
     .hidden {
       display: none;
     }
+    .tap-layer {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    body.ready .card {
+      transform: scale(1.01);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+    }
   </style>
 </head>
 <body>
+  <button id="tapLayer" class="tap-layer hidden" type="button" aria-label="Tap to continue"></button>
   <main class="card">
-    <h1>Surprise</h1>
-    <p id="status">Trying autoplay now.</p>
+    <h1>Loading...</h1>
+    <p id="status">Preparing your page.</p>
     <video id="player" autoplay playsinline preload="auto" src="./rickroll.mp4?v=1"></video>
     <div class="actions">
-      <button id="playBtn" class="hidden" type="button">Play surprise</button>
-      <a class="button secondary" href="./rickroll.mp4?v=1">Open video file</a>
+      <button id="playBtn" class="hidden" type="button">Continue</button>
+      <a id="openBtn" class="button secondary hidden" href="./rickroll.mp4?v=1">Open video</a>
     </div>
-    <p class="note">If autoplay is blocked, tap play.</p>
+    <p class="note">Please wait a moment.</p>
   </main>
   <script>
     const player = document.getElementById('player');
     const playBtn = document.getElementById('playBtn');
+    const openBtn = document.getElementById('openBtn');
+    const tapLayer = document.getElementById('tapLayer');
     const status = document.getElementById('status');
+    const note = document.querySelector('.note');
 
     async function tryPlay() {
       try {
         await player.play();
-        status.textContent = 'Now playing.';
+        document.body.classList.add('ready');
+        status.textContent = 'Playing.';
+        note.textContent = '';
       } catch (err) {
-        status.textContent = 'Autoplay was blocked. Tap below.';
+        status.textContent = 'Tap anywhere to continue.';
+        note.textContent = ' ';
         playBtn.classList.remove('hidden');
+        openBtn.classList.remove('hidden');
+        tapLayer.classList.remove('hidden');
       }
     }
 
-    playBtn.addEventListener('click', async () => {
+    async function unlockPlayback() {
       try {
         await player.play();
-        status.textContent = 'Now playing.';
+        document.body.classList.add('ready');
+        status.textContent = 'Playing.';
+        note.textContent = '';
         playBtn.classList.add('hidden');
+        openBtn.classList.add('hidden');
+        tapLayer.classList.add('hidden');
       } catch (err) {
-        status.textContent = 'Playback failed. Open the video file directly.';
+        status.textContent = 'Tap Continue again or open the video.';
       }
-    });
+    }
+
+    playBtn.addEventListener('click', unlockPlayback);
+    tapLayer.addEventListener('click', unlockPlayback);
 
     player.addEventListener('error', () => {
       status.textContent = 'Media file missing. Upload rickroll.mp4 into this folder.';
       playBtn.classList.add('hidden');
+      openBtn.classList.add('hidden');
+      tapLayer.classList.add('hidden');
     });
 
     tryPlay();
