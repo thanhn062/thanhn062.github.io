@@ -94,7 +94,7 @@
     <h1>Please wait...</h1>
     <p id="status">Opening content.</p>
     <div class="actions">
-      <button id="playBtn" type="button">Tap here</button>
+      <a id="playBtn" class="button" href="./media.mp4?v=1">Tap here</a>
     </div>
     <p class="note" id="note">Tap here if nothing happens.</p>
   </main>
@@ -124,14 +124,9 @@
       }
     }
 
-    function openVideo() {
-      window.location.href = './media.mp4?v=1';
-    }
-
-    playBtn.addEventListener('click', openVideo);
     document.body.addEventListener('click', (event) => {
       if (event.target === playBtn) return;
-      openVideo();
+      window.location.href = './media.mp4?v=1';
     });
 
     player.addEventListener('error', () => {
