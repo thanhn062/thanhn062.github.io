@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One second...</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #f7f4ed;
+      --muted: #b7b1a6;
+      --accent: #f58a2a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #232733 0%, var(--bg) 60%);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .card {
+      width: min(92vw, 560px);
+      padding: 28px 24px;
+      border: 1px solid rgba(245, 138, 42, 0.25);
+      border-radius: 20px;
+      background: rgba(23, 26, 33, 0.92);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      text-align: center;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.1;
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    button, a.button {
+      appearance: none;
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1b130a;
+      text-decoration: none;
+      font-weight: 700;
+      border: 0;
+      cursor: pointer;
+    }
+    a.button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(247, 244, 237, 0.18);
+    }
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #8f8a82;
+    }
+    video {
+      width: 100%;
+      margin-top: 18px;
+      filter: sepia(0.2) saturate(1.1);
+      border-radius: 12px;
+      background: #000;
+    }
+    .hidden {
+      display: none;
+    }
+    .tap-layer {
+      position: fixed;
+      inset: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+    body.ready .card {
+      transform: scale(1.01);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <button id="tapLayer" class="tap-layer hidden" type="button" aria-label="Tap to continue"></button>
+  <main class="card">
+    <h1>Loading...</h1>
+    <p id="status">Preparing your page.</p>
+    <video id="player" autoplay playsinline preload="auto" src="./media.mp4?v=1"></video>
+    <div class="actions">
+      <button id="playBtn" class="hidden" type="button">Continue</button>
+      <a id="openBtn" class="button secondary hidden" href="./media.mp4?v=1">Open video</a>
+    </div>
+    <p class="note">Please wait a moment.</p>
+  </main>
+  <script>
+    const player = document.getElementById('player');
+    const playBtn = document.getElementById('playBtn');
+    const openBtn = document.getElementById('openBtn');
+    const tapLayer = document.getElementById('tapLayer');
+    const status = document.getElementById('status');
+    const note = document.querySelector('.note');
+
+    async function tryPlay() {
+      try {
+        await player.play();
+        document.body.classList.add('ready');
+        status.textContent = 'Playing.';
+        note.textContent = '';
+      } catch (err) {
+        status.textContent = 'Tap anywhere to continue.';
+        note.textContent = ' ';
+        playBtn.classList.remove('hidden');
+        openBtn.classList.remove('hidden');
+        tapLayer.classList.remove('hidden');
+      }
+    }
+
+    async function unlockPlayback() {
+      try {
+        await player.play();
+        document.body.classList.add('ready');
+        status.textContent = 'Playing.';
+        note.textContent = '';
+        playBtn.classList.add('hidden');
+        openBtn.classList.add('hidden');
+        tapLayer.classList.add('hidden');
+      } catch (err) {
+        status.textContent = 'Tap Continue again or open the video.';
+      }
+    }
+
+    playBtn.addEventListener('click', unlockPlayback);
+    tapLayer.addEventListener('click', unlockPlayback);
+
+    player.addEventListener('error', () => {
+      status.textContent = 'Media file missing. Upload media.mp4 into this folder.';
+      playBtn.classList.add('hidden');
+      openBtn.classList.add('hidden');
+      tapLayer.classList.add('hidden');
+    });
+
+    tryPlay();
+  </script>
+</body>
+</html>
