@@ -29,7 +29,7 @@
       padding: 28px 24px;
       border: 1px solid rgba(245, 138, 42, 0.25);
       border-radius: 20px;
-      background: rgba(23, 26, 33, 0.9);
+      background: rgba(23, 26, 33, 0.92);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
       text-align: center;
     }
@@ -51,7 +51,8 @@
       gap: 12px;
       flex-wrap: wrap;
     }
-    .button {
+    button, a.button {
+      appearance: none;
       display: inline-block;
       padding: 12px 18px;
       border-radius: 999px;
@@ -60,8 +61,9 @@
       text-decoration: none;
       font-weight: 700;
       border: 0;
+      cursor: pointer;
     }
-    .button.secondary {
+    a.button.secondary {
       background: transparent;
       color: var(--text);
       border: 1px solid rgba(247, 244, 237, 0.18);
@@ -71,33 +73,58 @@
       font-size: 13px;
       color: #8f8a82;
     }
-    iframe {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      left: -9999px;
-      border: 0;
+    audio {
+      width: 100%;
+      margin-top: 18px;
+      filter: sepia(0.2) saturate(1.1);
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <iframe
-    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&loop=1&playlist=dQw4w9WgXcQ"
-    title="Never Gonna Give You Up"
-    allow="autoplay; encrypted-media"
-    referrerpolicy="strict-origin-when-cross-origin"
-  ></iframe>
-
   <main class="card">
     <h1>Loading your surprise...</h1>
-    <p>
-      If playback does not begin automatically, tap below.
-    </p>
+    <p id="status">Trying autoplay now.</p>
+    <audio id="player" autoplay playsinline preload="auto" src="./rickroll.mp3"></audio>
     <div class="actions">
-      <a class="button" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Play surprise</a>
-      <a class="button secondary" href="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&loop=1&playlist=dQw4w9WgXcQ">Open autoplay page</a>
+      <button id="playBtn" class="hidden" type="button">Play surprise</button>
+      <a class="button secondary" href="./rickroll.mp3">Open audio file</a>
     </div>
-    <p class="note">Autoplay depends on the browser and device audio policy.</p>
+    <p class="note">For full autoplay, this page needs a real audio file at <code>rickroll/rickroll.mp3</code>.</p>
   </main>
+  <script>
+    const player = document.getElementById('player');
+    const playBtn = document.getElementById('playBtn');
+    const status = document.getElementById('status');
+
+    async function tryPlay() {
+      try {
+        await player.play();
+        status.textContent = 'Now playing.';
+      } catch (err) {
+        status.textContent = 'Autoplay was blocked. Tap below.';
+        playBtn.classList.remove('hidden');
+      }
+    }
+
+    playBtn.addEventListener('click', async () => {
+      try {
+        await player.play();
+        status.textContent = 'Now playing.';
+        playBtn.classList.add('hidden');
+      } catch (err) {
+        status.textContent = 'Playback failed. Open the audio file directly.';
+      }
+    });
+
+    player.addEventListener('error', () => {
+      status.textContent = 'Audio file missing. Upload rickroll.mp3 into this folder.';
+      playBtn.classList.add('hidden');
+    });
+
+    tryPlay();
+  </script>
 </body>
 </html>
