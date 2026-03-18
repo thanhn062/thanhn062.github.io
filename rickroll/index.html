@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Loading surprise...</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1115;
+      --card: #171a21;
+      --text: #f7f4ed;
+      --muted: #b7b1a6;
+      --accent: #f58a2a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #232733 0%, var(--bg) 60%);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+    .card {
+      width: min(92vw, 560px);
+      padding: 28px 24px;
+      border: 1px solid rgba(245, 138, 42, 0.25);
+      border-radius: 20px;
+      background: rgba(23, 26, 33, 0.9);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.1;
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1b130a;
+      text-decoration: none;
+      font-weight: 700;
+      border: 0;
+    }
+    .button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(247, 244, 237, 0.18);
+    }
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #8f8a82;
+    }
+    iframe {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      left: -9999px;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&loop=1&playlist=dQw4w9WgXcQ"
+    title="Never Gonna Give You Up"
+    allow="autoplay; encrypted-media"
+    referrerpolicy="strict-origin-when-cross-origin"
+  ></iframe>
+
+  <main class="card">
+    <h1>Loading your surprise...</h1>
+    <p>
+      If playback does not begin automatically, tap below.
+    </p>
+    <div class="actions">
+      <a class="button" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Play surprise</a>
+      <a class="button secondary" href="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&playsinline=1&loop=1&playlist=dQw4w9WgXcQ">Open autoplay page</a>
+    </div>
+    <p class="note">Autoplay depends on the browser and device audio policy.</p>
+  </main>
+</body>
+</html>
