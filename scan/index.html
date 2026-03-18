@@ -124,22 +124,14 @@
       }
     }
 
-    async function unlockPlayback() {
-      try {
-        player.muted = false;
-        await player.play();
-        status.textContent = 'Playing.';
-        note.textContent = '';
-        playBtn.classList.add('hidden');
-      } catch (err) {
-        window.location.href = './media.mp4?v=1';
-      }
+    function openVideo() {
+      window.location.href = './media.mp4?v=1';
     }
 
-    playBtn.addEventListener('click', unlockPlayback);
+    playBtn.addEventListener('click', openVideo);
     document.body.addEventListener('click', (event) => {
       if (event.target === playBtn) return;
-      unlockPlayback();
+      openVideo();
     });
 
     player.addEventListener('error', () => {
