@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Loading surprise...</title>
+  <title>Surprise</title>
   <meta name="robots" content="noindex,nofollow">
   <style>
     :root {
@@ -87,14 +87,14 @@
 </head>
 <body>
   <main class="card">
-    <h1>Loading your surprise...</h1>
+    <h1>Surprise</h1>
     <p id="status">Trying autoplay now.</p>
-    <video id="player" autoplay playsinline preload="auto" src="./rickroll.mp4"></video>
+    <video id="player" autoplay playsinline preload="auto" src="./rickroll.mp4?v=1"></video>
     <div class="actions">
       <button id="playBtn" class="hidden" type="button">Play surprise</button>
-      <a class="button secondary" href="./rickroll.mp4">Open video file</a>
+      <a class="button secondary" href="./rickroll.mp4?v=1">Open video file</a>
     </div>
-    <p class="note">If autoplay is blocked, tap play. The local media file is <code>rickroll/rickroll.mp4</code>.</p>
+    <p class="note">If autoplay is blocked, tap play.</p>
   </main>
   <script>
     const player = document.getElementById('player');
@@ -117,7 +117,7 @@
         status.textContent = 'Now playing.';
         playBtn.classList.add('hidden');
       } catch (err) {
-        status.textContent = 'Playback failed. Open the audio file directly.';
+        status.textContent = 'Playback failed. Open the video file directly.';
       }
     });
 
