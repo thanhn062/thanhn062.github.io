@@ -73,10 +73,12 @@
       font-size: 13px;
       color: #8f8a82;
     }
-    audio {
+    video {
       width: 100%;
       margin-top: 18px;
       filter: sepia(0.2) saturate(1.1);
+      border-radius: 12px;
+      background: #000;
     }
     .hidden {
       display: none;
@@ -87,12 +89,12 @@
   <main class="card">
     <h1>Loading your surprise...</h1>
     <p id="status">Trying autoplay now.</p>
-    <audio id="player" autoplay playsinline preload="auto" src="./rickroll.mp3"></audio>
+    <video id="player" autoplay playsinline preload="auto" src="./rickroll.mp4"></video>
     <div class="actions">
       <button id="playBtn" class="hidden" type="button">Play surprise</button>
-      <a class="button secondary" href="./rickroll.mp3">Open audio file</a>
+      <a class="button secondary" href="./rickroll.mp4">Open video file</a>
     </div>
-    <p class="note">For full autoplay, this page needs a real audio file at <code>rickroll/rickroll.mp3</code>.</p>
+    <p class="note">If autoplay is blocked, tap play. The local media file is <code>rickroll/rickroll.mp4</code>.</p>
   </main>
   <script>
     const player = document.getElementById('player');
@@ -120,7 +122,7 @@
     });
 
     player.addEventListener('error', () => {
-      status.textContent = 'Audio file missing. Upload rickroll.mp3 into this folder.';
+      status.textContent = 'Media file missing. Upload rickroll.mp4 into this folder.';
       playBtn.classList.add('hidden');
     });
 
